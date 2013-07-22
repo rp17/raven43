@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 bin
 *.iws
 *~1
 *.log
 .metadata
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+>>>>>>> fb03799e95b1553cb2279f71317ee4d6d9c7ad17
