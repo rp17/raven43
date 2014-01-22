@@ -5,6 +5,7 @@ import raven.ui.GameCanvas;
 import raven.ui.RavenUI;
 import raven.utils.Log;
 import raven.utils.Log.Level;
+import javax.swing.SwingUtilities;
 
 public class Main {
 	private static RavenUI ui;
@@ -14,8 +15,12 @@ public class Main {
     	Log.setLevel(Level.DEBUG);
     	
     	game = new RavenGame();
-    	ui = new RavenUI(game);
-    	GameCanvas.getInstance().setNewSize(game.getMap().getSizeX(), game.getMap().getSizeY());
+    	SwingUtilities.invokeLater(new Runnable() {
+    	      public void run() {
+    	    	ui = new RavenUI(game);
+    	    	GameCanvas.getInstance().setNewSize(game.getMap().getSizeX(), game.getMap().getSizeY());
+    	      }
+    	    });
     	gameLoop();
 	}
     
@@ -41,10 +46,18 @@ public class Main {
     		//if(!game.isPaused()) {
     			try {
     				//GameCanvas.startDrawing(game.getMap().getSizeX(), game.getMap().getSizeY());
-    				GameCanvas.startDrawing();
-    				game.render();
+    				SwingUtilities.invokeLater(new Runnable() {
+  			  	      public void run() {
+  			  	    	GameCanvas.startDrawing();
+  			  	    	game.render();
+  			  	      }
+  			  	    });
     			} finally {
-    				GameCanvas.stopDrawing();
+    				SwingUtilities.invokeLater(new Runnable() {
+    			  	      public void run() {
+    			  	    	GameCanvas.stopDrawing();
+    			  	      }
+    			  	    });
     			}
     		//}
     		//}
